@@ -13,5 +13,10 @@ func routes() http.Handler {
 	r.Use(SessionLoad)
 	r.Get("/", handlers.Repo.Home)
 	r.Get("/about", handlers.Repo.About)
+	//  Create a file server which serves files out of the static directory
+	fileServer := http.FileServer(http.Dir("./static/"))
+	// Register as the handler by using handle function
+	// Strip the static prefix before the request reaches the file server
+	r.Handle("/static/*", http.StripPrefix("/static", fileServer))
 	return r
 }
