@@ -32,7 +32,7 @@ func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 	stringMap := make(map[string]string)
 	stringMap["title"] = "Home Page"
 	stringMap["desc"] = "This is home page"
-	renderTemplate(w, "home.html", &models.TemplateData{
+	renderPage(w, "home", &models.TemplateData{
 		StringMap: stringMap,
 	})
 }
@@ -43,13 +43,13 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 	stringMap["title"] = "About Page"
 	stringMap["desc"] = "This is about page"
 	stringMap["remote_ip"] = remoteIP
-	renderTemplate(w, "about.html", &models.TemplateData{
+	renderPage(w, "about", &models.TemplateData{
 		StringMap: stringMap,
 	})
 }
 
-func renderTemplate(w http.ResponseWriter, page string, data *models.TemplateData) {
-	tpl, err := template.ParseFiles("templates/base.html", "templates/"+page)
+func renderPage(w http.ResponseWriter, page string, data *models.TemplateData) {
+	tpl, err := template.ParseFiles("templates/base.tmpl", "templates/"+page+".page.tmpl")
 	if err != nil {
 		log.Fatal(err)
 	}
