@@ -26,9 +26,6 @@ func SetRepo(r *Repository) {
 }
 
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
-	remoteIP := r.RemoteAddr
-	m.App.Session.Put(r.Context(), "remote_ip", remoteIP)
-
 	stringMap := make(map[string]string)
 	stringMap["title"] = "Home Page"
 	stringMap["desc"] = "This is home page"
@@ -38,14 +35,32 @@ func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
-	remoteIP := m.App.Session.GetString(r.Context(), "remote_ip")
 	stringMap := make(map[string]string)
 	stringMap["title"] = "About Page"
 	stringMap["desc"] = "This is about page"
-	stringMap["remote_ip"] = remoteIP
 	renderPage(w, "about", &models.TemplateData{
 		StringMap: stringMap,
 	})
+}
+
+func (m *Repository) Generals(w http.ResponseWriter, r *http.Request) {
+	renderPage(w, "generals", &models.TemplateData{})
+}
+
+func (m *Repository) Majors(w http.ResponseWriter, r *http.Request) {
+	renderPage(w, "majors", &models.TemplateData{})
+}
+
+func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
+	renderPage(w, "make-reservation", &models.TemplateData{})
+}
+
+func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
+	renderPage(w, "contact", &models.TemplateData{})
+}
+
+func (m *Repository) SearchAvailability(w http.ResponseWriter, r *http.Request) {
+	renderPage(w, "search-availability", &models.TemplateData{})
 }
 
 func renderPage(w http.ResponseWriter, page string, data *models.TemplateData) {

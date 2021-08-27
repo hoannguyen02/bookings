@@ -13,6 +13,11 @@ func routes() http.Handler {
 	r.Use(SessionLoad)
 	r.Get("/", handlers.Repo.Home)
 	r.Get("/about", handlers.Repo.About)
+	r.Get("/generals-quarters", handlers.Repo.Generals)
+	r.Get("/majors-suite", handlers.Repo.Majors)
+	r.Get("/contact", handlers.Repo.Contact)
+	r.Get("/search-availability", handlers.Repo.SearchAvailability)
+	r.Get("/make-reservation", handlers.Repo.Reservation)
 	//  Create a file server which serves files out of the static directory
 	fileServer := http.FileServer(http.Dir("./static/"))
 	// Register as the handler by using handle function
